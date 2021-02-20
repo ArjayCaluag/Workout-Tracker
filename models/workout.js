@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// Schema based off of seeds file given to us
 const workoutSchema = new Schema({
   day: {
     type: Date,

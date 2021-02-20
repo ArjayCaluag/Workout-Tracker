@@ -3,6 +3,7 @@ const db = require("../models");
 const router = require("express").Router();
 
 // Find all workouts
+
 // Aggregate used to tally up the sum of exercise duration to populate totalDuration field
 router.get("/api/workouts", (req, res) => {
   db.Workout.aggregate([
@@ -35,6 +36,7 @@ router.post("/api/workouts", (req, res) => {
 router.put("/api/workouts/:id", ({ body, params }, res) => {
   db.Workout.findByIdAndUpdate(
     params.id,
+    // $push appends to the exercises array
     { $push: { exercises: body } },
     { new: true }
   )
