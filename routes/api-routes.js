@@ -3,8 +3,15 @@ const db = require("../models");
 const router = require("express").Router();
 
 // Find all workouts
+// Aggregate used to tally up the sum of exercise duration to populate totalDuration field
 router.get("/api/workouts", (req, res) => {
-  db.Workout.find({})
+  db.Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: {$sum: "$exercises.duration"}
+      }
+    }
+  ])
     .then((dbWorkout) => {
       res.json(dbWorkout);
     })
@@ -12,6 +19,7 @@ router.get("/api/workouts", (req, res) => {
       res.json(err);
     });
 });
+
 
 // Create workout
 router.post("/api/workouts", (req, res) => {
@@ -23,6 +31,7 @@ router.post("/api/workouts", (req, res) => {
     });
 });
 
+// Add exercise to workout
 router.put("/api/workouts/:id", ({ body, params }, res) => {
   db.Workout.findByIdAndUpdate(
     params.id,
@@ -35,7 +44,7 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
     });
 });
 
-
+//Route for workout dashboard
 router.get("/api/workouts/range", (req, res) => {
   db.Workout.find({})
   .then(dbWorkout => {
