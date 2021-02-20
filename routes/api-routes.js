@@ -14,14 +14,25 @@ router.get("/api/workouts", (req, res) => {
 });
 
 // Create workout
-router.post("/api/workouts", ({ body }, res) => {
-
-  db.Workout.create(body).then((dbWorkout => {
-      res.json(dbWorkout);
-  })).catch(err => {
+router.post("/api/workouts", (req, res) => {
+  db.Workout.create({})
+    .then((dbWorkout) => res.json(dbWorkout))
+    .catch((err) => {
+      console.log("err", err);
       res.json(err);
-  });
+    });
 });
 
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+  db.Workout.findByIdAndUpdate(
+    params.id,
+    { $push: { exercises: body } },
+    { new: true }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => {
+      res.json(err);
+    });
+});
 
 module.exports = router;
