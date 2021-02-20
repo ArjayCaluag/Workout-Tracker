@@ -38,16 +38,16 @@ const workoutSchema = new Schema({
         type: Number,
         required: "Enter amount of miles ran",
       },
-      reps : {
+      reps: {
         type: Number,
-        required: "Enter amount of reps"
-      }
+        required: "Enter amount of reps",
+      },
     },
   ],
   totalDuration: {
-      type: Number,
-      default: 0,
-  }
+    type: Number,
+    default: 0,
+  },
 });
 
 const Workout = mongoose.model("Workout", workoutSchema);

@@ -9,9 +9,9 @@ router.get("/api/workouts", (req, res) => {
   db.Workout.aggregate([
     {
       $addFields: {
-        totalDuration: {$sum: "$exercises.duration"}
-      }
-    }
+        totalDuration: { $sum: "$exercises.duration" },
+      },
+    },
   ])
     .then((dbWorkout) => {
       res.json(dbWorkout);
@@ -20,7 +20,6 @@ router.get("/api/workouts", (req, res) => {
       res.json(err);
     });
 });
-
 
 // Create workout
 router.post("/api/workouts", (req, res) => {
@@ -49,12 +48,12 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
 //Route for workout dashboard
 router.get("/api/workouts/range", (req, res) => {
   db.Workout.find({})
-  .then(dbWorkout => {
-    res.json(dbWorkout);
-  })
-  .catch (err => {
-    res.json(err);
-  });
+    .then((dbWorkout) => {
+      res.json(dbWorkout);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 module.exports = router;
