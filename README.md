@@ -4,7 +4,10 @@ For this project, our application serves as a workout tracker where a user can a
 
 <br><br>
 
-![image](https://user-images.githubusercontent.com/52800632/108153314-c6085080-708f-11eb-802a-aca8bcba623f.png)
+![image](https://user-images.githubusercontent.com/52800632/108585822-7203a300-72ff-11eb-8a97-1af88101d535.png)
+![image](https://user-images.githubusercontent.com/52800632/108585833-8182ec00-72ff-11eb-9f7a-c4bbe6a3cda4.png)
+
+
 
 
 # **Installation**
@@ -49,9 +52,25 @@ router.get("/api/workouts", (req, res) => {
 });
 
 ```
+```js
+// Add exercise to workout
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+  db.Workout.findByIdAndUpdate(
+    params.id,
+    // $push appends to the exercises array
+    { $push: { exercises: body } },
+    { new: true }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+```
 # **Deployed Link**
 
-https://arjaycaluag.github.io/Portfolio-3/
+https://workouttracker-rc.herokuapp.com/
 # **Authors**
 
 Ron-Arjay Caluag<br>
