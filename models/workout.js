@@ -37,6 +37,10 @@ const workoutSchema = new Schema({
         type: Number,
         required: "Enter amount of miles ran",
       },
+      reps : {
+        type: Number,
+        required: "Enter amount of reps"
+      }
     },
   ],
   totalDuration: {
